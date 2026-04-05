@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Important Question ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        overflow: hidden;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    button {
+        padding: 12px 25px;
+        margin: 10px;
+        font-size: 18px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    #yes {
+        background-color: #28a745;
+        color: white;
+    }
+
+    #no {
+        background-color: #dc3545;
+        color: white;
+        position: absolute;
+    }
+
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Sikifii will you be my girlfriend already ? ❤️</h1>
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 😢</button>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+
+// Move "No" button randomly
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// Confetti effect
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = [];
+
+function createConfetti() {
+    for (let i = 0; i < 200; i++) {
+        confetti.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 6 + 2,
+            d: Math.random() * 10,
+            color: "hsl(" + Math.random() * 360 + ", 100%, 50%)",
+            tilt: Math.random() * 10 - 10
+        });
+    }
+}
+
+function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach((c, i) => {
+        ctx.beginPath();
+        ctx.fillStyle = c.color;
+        ctx.fillRect(c.x, c.y, c.r, c.r);
+    });
+    updateConfetti();
+}
+
+function updateConfetti() {
+    confetti.forEach((c, i) => {
+        c.y += Math.cos(c.d) + 1;
+        c.x += Math.sin(c.d);
+
+        if (c.y > canvas.height) {
+            confetti[i] = {
+                ...c,
+                y: 0,
+                x: Math.random() * canvas.width
+            };
+        }
+    });
+}
+
+// When YES is clicked
+yesBtn.addEventListener("click", () => {
+    createConfetti();
+    setInterval(drawConfetti, 20);
+    document.querySelector("h1").innerText = "Whaaaaaaat??!!! I love you Dr. Sanjana Ramakrishnan AKA Skifi AKA Nail's GIRLFRIEND ❤️.  skdjjdkdhdnsksjakaljshsjsjsn";
+});
+</script>
+
+</body>
+</html>
